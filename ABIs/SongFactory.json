@@ -1,0 +1,25 @@
+[
+   {
+      "inputs": [
+         {
+            "internalType": "address",
+            "name": "ipId",
+            "type": "address"
+         },
+         {
+            "internalType": "address",
+            "name": "licenseTemplate",
+            "type": "address"
+         },
+         {
+            "internalType": "uint256",
+            "name": "licenseTermsId",
+            "type": "uint256"
+         }
+      ],
+      "name": "attachLicenseTerms",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+   }
+]

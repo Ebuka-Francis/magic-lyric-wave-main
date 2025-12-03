@@ -1,0 +1,7 @@
+project_id = "coddjrsrlmidamgjdzhw"
+
+[functions.generate-lyrics]
+verify_jwt = false
+
+[functions.generate-music]
+verify_jwt = false
