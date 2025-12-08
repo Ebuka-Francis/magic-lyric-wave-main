@@ -2,6 +2,81 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "parentSongId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "childSongId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "metadataURI",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "derivativeType",
+        "type": "string"
+      }
+    ],
+    "name": "createDerivative",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "childTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "childIpId",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "fundRewards",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_storyDerivative",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_licenseTemplate",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_licenseTermsId",
+        "type": "uint256"
+      }
+    ],
+    "name": "initStoryProtocol",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_songFactory",
         "type": "address"
@@ -111,6 +186,13 @@
     "type": "event"
   },
   {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -124,16 +206,42 @@
     "type": "event"
   },
   {
-    "inputs": [],
-    "name": "ROYALTY_PERCENTAGE",
-    "outputs": [
+    "inputs": [
       {
-        "internalType": "uint16",
-        "name": "",
-        "type": "uint16"
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
       }
     ],
-    "stateMutability": "view",
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newReward",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateDerivativeCreationReward",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -158,45 +266,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "parentSongId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "childSongId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "metadataURI",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "derivativeType",
-        "type": "string"
-      }
-    ],
-    "name": "createDerivative",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "childTokenId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "childIpId",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -254,19 +323,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "fundRewards",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -355,29 +411,6 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_storyDerivative",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_licenseTemplate",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_licenseTermsId",
-        "type": "uint256"
-      }
-    ],
-    "name": "initStoryProtocol",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
         "name": "songId",
         "type": "uint256"
@@ -448,9 +481,15 @@
   },
   {
     "inputs": [],
-    "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "ROYALTY_PERCENTAGE",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -477,45 +516,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
-    "name": "transferOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "newReward",
-        "type": "uint256"
-      }
-    ],
-    "name": "updateDerivativeCreationReward",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "withdrawTokens",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
