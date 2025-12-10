@@ -18,9 +18,16 @@ import { toast } from 'sonner';
 import ProfileDropdown from '@/components/ProfileDropdown';
 import { useAccount } from 'wagmi';
 import { useMyContext } from '@/context/MyContext';
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { DERIVATIVE_FACTORY_ABI } from '@/config/abi';
+import { DERIVATIVE_FACTORY_ADDRESS } from '@/config/contracts';
 
 const Result = () => {
-   const { address } = useAccount();
+   const { address, chain } = useAccount();
+   const { writeContract, data: hash, isPending, error: writeError } = useWriteContract();
+   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+      hash,
+   });
    const location = useLocation();
    const navigate = useNavigate();
    const { myData } = useMyContext();
@@ -49,12 +56,40 @@ const Result = () => {
       saveSongToDatabase();
    }, [message]);
 
+   useEffect(() => {
+    if (isConfirmed) {
+       toast.success('Remixing enabled successfully!');
+    }
+    if (writeError) {
+        toast.error(`Failed to enable remixing: ${writeError.message}`);
+    }
+ }, [isConfirmed, writeError]);
+
+ const handleEnableRemixing = () => {
+    try {
+       const parentSongId = BigInt(1); 
+       const childSongId = BigInt(2); 
+       const metadataURI = ""; 
+       const derivativeType = "Remix"; 
+       writeContract({
+          address: DERIVATIVE_FACTORY_ADDRESS as `0x${string}`,
+          abi: DERIVATIVE_FACTORY_ABI,
+          functionName: 'createDerivative',
+          args: [parentSongId, childSongId, metadataURI, derivativeType],
+          account: address,
+          chain: chain,
+       });
+    } catch (error) {
+       console.error('Error calling contract:', error);
+       toast.error('Failed to initiate transaction');
+    }
+ };
+
    const saveSongToDatabase = async () => {
       if (songSaved || isSaving) return;
 
       setIsSaving(true);
-      try {
-         // Without authentication, just show success message
+      try {   
          toast.success('Song generated successfully!');
          setSongSaved(true);
       } catch (error) {
@@ -314,8 +349,10 @@ const Result = () => {
                               variant="outline"
                               className="w-full justify-between text-sm"
                               size="lg"
+                              onClick={handleEnableRemixing}
+                              disabled={isPending}
                            >
-                              <span>Enable Remixing</span>
+                              <span>{isPending ? 'Enabling...' : 'Enable Remixing'}</span>
                               <Sparkles className="w-4 h-4 flex-shrink-0" />
                            </Button>
                            <Button
